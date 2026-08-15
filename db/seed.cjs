@@ -1,5 +1,6 @@
 const client = require('./client.cjs');
 const { createActiveCustomers } = require('./active-customers.cjs');
+const { createBilledCustomers } = require('./billed-customers.cjs');
 
 const deleteTables = async() => {
   try {
@@ -55,6 +56,11 @@ const syncAndSeed = async() => {
   await createActiveCustomers('Active Customer 1', 'Jacksonville', 'Active Customer 1 description', '1/10/2026', '1/15/2026');
   await createActiveCustomers('Active Customer 2', 'Laredo', 'Active Customer 2 description', '4/15/2026', '4/20/2026');
   console.log('Active Customers Added');
+
+  console.log('Adding Billed Customers')
+  await createBilledCustomers('Billed Customer 3', 'Jacksonville', 'Billed Customer 3 description', '5/1/2026', '5/9/2026', '5/15/2026');
+  await createBilledCustomers('Billed Customer 4', 'Katy', 'Billed Customer 4 description', '6/4/2026', '6/15/2026', '6/20/2026');
+  console.log('Billed Customers Added');
 
   await client.end();
   console.log('Disconnected to the DB');
