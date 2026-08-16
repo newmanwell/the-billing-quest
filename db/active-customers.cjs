@@ -11,4 +11,13 @@ const createActiveCustomers = async(customerName, location, description, dateOns
   }
 }
 
-module.exports = { createActiveCustomers }
+const getActiveCustomers = async() => {
+  try {
+    const result = await client.query('SELECT * FROM active_customers');
+    return result.rows;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { createActiveCustomers, getActiveCustomers }

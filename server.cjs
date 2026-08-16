@@ -1,9 +1,20 @@
 const express = require('express');
+const client = require('./db/client.cjs');
+const { getActiveCustomers } = require('./db/active-customers.cjs');
 
 const app = express();
 
 app.get('/', (req, res, next) => {
   res.send('Billing Quest Server');
+})
+
+app.get('/active-customers', async (req, res, next) => {
+  try {
+    const customers = await getActiveCustomers();
+    res.json(customers);
+  } catch (err) {
+    next(err);
+  }
 })
 
 app.use((req, res, next) => {
@@ -15,6 +26,11 @@ app.use((err, req, res, next) => {
 })
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
+client.connect().then(() => {
+  console.log('Connected to the DB');
+  app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+  });
+}).catch((err) => {
+  console.error('Failed to connect to the DB', err);
 });
