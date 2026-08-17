@@ -11,4 +11,13 @@ const createBilledCustomers = async(customerName, location, description, dateOns
   }
 }
 
-module.exports = { createBilledCustomers }
+const getBilledCustomers = async() => {
+  try {
+    const result = await client.query('SELECT * FROM billed_customers');
+    return result.rows;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { createBilledCustomers, getBilledCustomers }
