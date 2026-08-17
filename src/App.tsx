@@ -1,10 +1,18 @@
+import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import ActiveCustomers from './ActiveCustomers'
 
 function App() {
 
   return (
     <>
-      <h1>The Billing Quest</h1>
+      <header>
+        <h1>The Billing Quest</h1>
+        <Link to='/activecustomers'>Active Customers</Link>
+      </header>
+      <Routes>
+        <Route path="/activecustomers" element={<ActiveCustomers />} />
+      </Routes>
     </>
   )
 }
