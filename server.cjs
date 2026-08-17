@@ -1,6 +1,7 @@
 const express = require('express');
 const client = require('./db/client.cjs');
 const { getActiveCustomers } = require('./db/active-customers.cjs');
+const { getBilledCustomers } = require('./db/billed-customers.cjs');
 
 const app = express();
 
@@ -11,6 +12,15 @@ app.get('/', (req, res, next) => {
 app.get('/active-customers', async (req, res, next) => {
   try {
     const customers = await getActiveCustomers();
+    res.json(customers);
+  } catch (err) {
+    next(err);
+  }
+})
+
+app.get('/billed-customers', async (req, res, next) => {
+  try {
+    const customers = await getBilledCustomers();
     res.json(customers);
   } catch (err) {
     next(err);
