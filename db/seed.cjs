@@ -1,5 +1,5 @@
 const client = require('./client.cjs');
-const { createActiveCustomers } = require('./active-customers.cjs');
+const { postActiveCustomers } = require('./active-customers.cjs');
 const { createBilledCustomers } = require('./billed-customers.cjs');
 
 const deleteTables = async() => {
@@ -53,8 +53,8 @@ const syncAndSeed = async() => {
   console.log('Tables Added');
 
   console.log('Adding Active Customers');
-  await createActiveCustomers('Active Customer 1', 'Jacksonville', 'Active Customer 1 description', '1/10/2026', '1/15/2026');
-  await createActiveCustomers('Active Customer 2', 'Laredo', 'Active Customer 2 description', '4/15/2026', '4/20/2026');
+  await postActiveCustomers('Active Customer 1', 'Jacksonville', 'Active Customer 1 description', '1/10/2026', '1/15/2026');
+  await postActiveCustomers('Active Customer 2', 'Laredo', 'Active Customer 2 description', '4/15/2026', '4/20/2026');
   console.log('Active Customers Added');
 
   console.log('Adding Billed Customers')
