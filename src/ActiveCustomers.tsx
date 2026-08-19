@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import AddActiveCustomer from './AddActiveCustomer';
 
 interface ActiveCustomer {
   id: number;
@@ -9,22 +10,23 @@ interface ActiveCustomer {
   date_leave_site: string;
 }
 
-function ActiveCustomers() {
+const ActiveCustomers = () => {
   const [customers, setCustomers] = useState<ActiveCustomer[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showAddCustomer, setShowAddCustomer] = useState(false);
+
+  const fetchActiveCustomers = async () => {
+    try {
+      const res = await fetch('/active-customers');
+      const data = await res.json();
+      setCustomers(data);
+    } catch (err) {
+      console.log(err);
+      setError('Failed to load active customers');
+    }
+  };
 
   useEffect(() => {
-    const fetchActiveCustomers = async () => {
-      try {
-        const res = await fetch('/active-customers');
-        const data = await res.json();
-        setCustomers(data);
-      } catch (err) {
-        console.log(err);
-        setError('Failed to load active customers');
-      }
-    };
-
     fetchActiveCustomers();
   }, []);
 
@@ -35,6 +37,13 @@ function ActiveCustomers() {
   return (
     <>
       <h1>Active Customers</h1>
+      <button onClick={() => setShowAddCustomer(true)}>Add New Customer</button>
+      {showAddCustomer && (
+        <AddActiveCustomer
+          onClose={() => setShowAddCustomer(false)}
+          onCustomerAdded={fetchActiveCustomers}
+        />
+      )}
       <table>
         <thead>
           <tr>
