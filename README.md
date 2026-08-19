@@ -19,4 +19,4 @@ I'm pretty excited to build an app that will be used in a real work enviroment!
 2. In PSQL: CREATE DATABASE billingquest;
 3. To seed tables and inital test customer rows: node db/seed.cjs
 4. To start server: node server.cjs or nodemon server.cjs
-5. To start frontend dev environment: npm dun dev
+5. To start frontend dev environment: npm run dev
