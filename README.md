@@ -12,11 +12,8 @@ While I've used AI to help with design, syntax help, and code reviews before thi
 I'm pretty excited to build an app that will be used in a real work enviroment!
 
 ## To Run Locally
-1. Install dependencies: 
-    1. npm install express
-    2. npm install pg
-    3. npm install nodemon
-2. In PSQL: CREATE DATABASE billingquest;
+1. Install dependencies: npm install
+2. In PSQL: CREATE DATABASE billingquest; (Optional: set DATABASE_URL if your Postgres isn't on the default localhost:5432 with no auth)
 3. To seed tables and inital test customer rows: node db/seed.cjs
 4. To start server: node server.cjs or nodemon server.cjs
 5. To start frontend dev environment: npm run dev
