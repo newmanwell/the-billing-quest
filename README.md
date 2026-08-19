@@ -10,3 +10,13 @@ My team often operates independently from other departments in the company. We n
 While I've used AI to help with design, syntax help, and code reviews before this project I am letting Claude do a good amount of the heavy lifting. I am making Claude code the way I code, small testable chunks before moving onto the next task.  
 
 I'm pretty excited to build an app that will be used in a real work enviroment!
+
+## To Run Locally
+1. Install dependencies: 
+    npm install express
+    npm install pg
+    npm install nodemon
+2. In PSQL: CREATE DATABASE billingquest;
+3. To seed tables and inital test customer rows: node db/seed.cjs
+4. To start server: node server.cjs or nodemon server.cjs
+5. To start frontend dev environment: npm dun dev
