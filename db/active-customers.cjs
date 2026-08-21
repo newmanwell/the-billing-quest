@@ -33,4 +33,31 @@ const getActiveCustomers = async() => {
   }
 }
 
-module.exports = { postActiveCustomers, getActiveCustomers }
+const moveActiveCustomerToBilled = async(id, dateBilled) => {
+  try {
+    await client.query('BEGIN');
+
+    const { rows } = await client.query('SELECT * FROM active_customers WHERE id = $1', [id]);
+    const customer = rows[0];
+    if (!customer) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+
+    const result = await client.query(`
+        INSERT INTO billed_customers (customer_name, location, description, date_onsite, date_leave_site, date_billed)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *
+      `, [customer.customer_name, customer.location, customer.description, customer.date_onsite, customer.date_leave_site, dateBilled]);
+
+    await client.query('DELETE FROM active_customers WHERE id = $1', [id]);
+
+    await client.query('COMMIT');
+    return result.rows[0];
+  } catch(err) {
+    await client.query('ROLLBACK');
+    console.log(err);
+  }
+}
+
+module.exports = { postActiveCustomers, getActiveCustomers, moveActiveCustomerToBilled }
