@@ -16,6 +16,7 @@ const ActiveCustomers = () => {
   const [error, setError] = useState<string | null>(null);
   const [showAddCustomer, setShowAddCustomer] = useState(false);
   const [showMoveToBilled, setShowMoveToBilled] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<ActiveCustomer | null>(null);
 
   const fetchActiveCustomers = async () => {
     try {
@@ -46,8 +47,12 @@ const ActiveCustomers = () => {
           onCustomerAdded={fetchActiveCustomers}
         />
       )}
-      {showMoveToBilled && (
-        <MoveToBilled onClose={() => setShowMoveToBilled(false)} />
+      {showMoveToBilled && selectedCustomer && (
+        <MoveToBilled
+          customer={selectedCustomer}
+          onClose={() => setShowMoveToBilled(false)}
+          onMoved={fetchActiveCustomers}
+        />
       )}
       <table>
         <thead>
@@ -68,7 +73,7 @@ const ActiveCustomers = () => {
               <td>{customer.description}</td>
               <td>{customer.date_onsite}</td>
               <td>{customer.date_leave_site}</td>
-              <td><button onClick={() => setShowMoveToBilled(true)}>Billed</button></td>
+              <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button></td>
             </tr>
           ))}
         </tbody>
