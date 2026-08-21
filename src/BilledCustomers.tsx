@@ -10,7 +10,7 @@ interface BilledCustomer {
   date_billed: string;
 }
 
-function BilledCustomers() {
+const BilledCustomers = () => {
   const [customers, setCustomers] = useState<BilledCustomer[]>([]);
   const [error, setError] = useState<string | null>(null);
 
