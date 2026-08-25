@@ -57,8 +57,12 @@ const ActiveCustomers = () => {
         />
       )}
       {
-        showEdit && (
-          <EditActiveCustomer />
+        showEdit && selectedCustomer && (
+          <EditActiveCustomer
+            customer={selectedCustomer}
+            onClose={() => setShowEdit(false)}
+            onUpdated={fetchActiveCustomers}
+          />
         )
       }
       <table>
@@ -81,7 +85,7 @@ const ActiveCustomers = () => {
               <td>{customer.date_onsite}</td>
               <td>{customer.date_leave_site}</td>
               <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button>
-                  <button onClick={() => { setShowEdit(true); }}>Edit</button>
+                  <button onClick={() => { setSelectedCustomer(customer); setShowEdit(true); }}>Edit</button>
               </td>
             </tr>
           ))}
