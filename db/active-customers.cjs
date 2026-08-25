@@ -60,4 +60,18 @@ const moveActiveCustomerToBilled = async(id, dateBilled) => {
   }
 }
 
-module.exports = { postActiveCustomers, getActiveCustomers, moveActiveCustomerToBilled }
+const updateActiveCustomer = async(id, customerName, location, description, dateOnsite, dateLeaveSite) => {
+  try {
+    const result = await client.query(`
+        UPDATE active_customers
+        SET customer_name = $1, location = $2, description = $3, date_onsite = $4, date_leave_site = $5
+        WHERE id = $6
+        RETURNING *
+      `, [customerName, location, description, dateOnsite, dateLeaveSite, id]);
+    return result.rows[0];
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { postActiveCustomers, getActiveCustomers, moveActiveCustomerToBilled, updateActiveCustomer }

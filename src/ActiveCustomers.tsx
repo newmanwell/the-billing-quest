@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import AddActiveCustomer from './AddActiveCustomer';
 import MoveToBilled from './MoveToBilled';
+import EditActiveCustomer from './EditActiveCustomer';
 
 interface ActiveCustomer {
   id: number;
@@ -16,6 +17,7 @@ const ActiveCustomers = () => {
   const [error, setError] = useState<string | null>(null);
   const [showAddCustomer, setShowAddCustomer] = useState(false);
   const [showMoveToBilled, setShowMoveToBilled] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<ActiveCustomer | null>(null);
 
   const fetchActiveCustomers = async () => {
@@ -54,6 +56,15 @@ const ActiveCustomers = () => {
           onMoved={fetchActiveCustomers}
         />
       )}
+      {
+        showEdit && selectedCustomer && (
+          <EditActiveCustomer
+            customer={selectedCustomer}
+            onClose={() => setShowEdit(false)}
+            onUpdated={fetchActiveCustomers}
+          />
+        )
+      }
       <table>
         <thead>
           <tr>
@@ -62,7 +73,7 @@ const ActiveCustomers = () => {
             <th>Description</th>
             <th>Date Onsite</th>
             <th>Date Leave Site</th>
-            <th>Send to Billed</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +84,9 @@ const ActiveCustomers = () => {
               <td>{customer.description}</td>
               <td>{customer.date_onsite}</td>
               <td>{customer.date_leave_site}</td>
-              <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button></td>
+              <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button>
+                  <button onClick={() => { setSelectedCustomer(customer); setShowEdit(true); }}>Edit</button>
+              </td>
             </tr>
           ))}
         </tbody>

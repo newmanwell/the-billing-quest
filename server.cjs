@@ -1,6 +1,6 @@
 const express = require('express');
 const client = require('./db/client.cjs');
-const { getActiveCustomers, postActiveCustomers, moveActiveCustomerToBilled } = require('./db/active-customers.cjs');
+const { getActiveCustomers, postActiveCustomers, moveActiveCustomerToBilled, updateActiveCustomer } = require('./db/active-customers.cjs');
 const { getBilledCustomers } = require('./db/billed-customers.cjs');
 
 const app = express();
@@ -39,6 +39,20 @@ app.post('/active-customers/:id/move-to-billed', async (req, res, next) => {
       return res.status(404).send('Active customer not found');
     }
     res.status(201).json(billedCustomer);
+  } catch (err) {
+    next(err);
+  }
+})
+
+app.put('/active-customers/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { customerName, location, description, dateOnsite, dateLeaveSite } = req.body;
+    const customer = await updateActiveCustomer(id, customerName, location, description, dateOnsite, dateLeaveSite);
+    if (!customer) {
+      return res.status(404).send('Active customer not found');
+    }
+    res.json(customer);
   } catch (err) {
     next(err);
   }
