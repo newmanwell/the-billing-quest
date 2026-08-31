@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import './App.css'
 import ActiveCustomers from './ActiveCustomers'
 import BilledCustomers from './BilledCustomers'
@@ -8,9 +8,11 @@ function App() {
   return (
     <>
       <header>
-        <h1>The Billing Quest</h1>
-        <Link to='/activecustomers'>Active Customers</Link>
-        <Link to='/billedcustomers'>Billed Customers</Link>
+        <h1>The Billing <span className='the-Q'>Q</span>uest</h1>
+        <div>
+          <NavLink to='/activecustomers'>Active Customers</NavLink>
+          <NavLink to='/billedcustomers'>Billed Customers</NavLink>
+        </div>
       </header>
       <Routes>
         <Route path="/activecustomers" element={<ActiveCustomers />} />

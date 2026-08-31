@@ -41,7 +41,7 @@ const ActiveCustomers = () => {
 
   return (
     <>
-      <h1>Active Customers</h1>
+      <h2>Active Customers</h2>
       <button onClick={() => setShowAddCustomer(true)}>Add New Customer</button>
       {showAddCustomer && (
         <AddActiveCustomer
