@@ -35,7 +35,7 @@ const BilledCustomers = () => {
 
   return (
     <>
-      <h1>Billed Customers</h1>
+      <h2>Billed Customers</h2>
       <table>
         <thead>
           <tr>
