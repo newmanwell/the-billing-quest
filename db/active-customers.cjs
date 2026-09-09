@@ -11,13 +11,13 @@ const client = require("./client.cjs");
 //   }
 // }
 
-const postActiveCustomers = async(customerName, location, description, dateOnsite, dateLeaveSite) => {
+const postActiveCustomers = async(customerName, location, description, toDo, dateOnsite, dateLeaveSite) => {
   try {
     const result = await client.query(`
-        INSERT INTO active_customers (customer_name, location, description, date_onsite, date_leave_site)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO active_customers (customer_name, location, description, to_do, date_onsite, date_leave_site)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *
-      `, [customerName, location, description, dateOnsite, dateLeaveSite]);
+      `, [customerName, location, description, toDo, dateOnsite, dateLeaveSite]);
     return result.rows[0];
   } catch(err) {
     console.log(err);
