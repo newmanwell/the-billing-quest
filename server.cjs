@@ -47,8 +47,8 @@ app.post('/active-customers/:id/move-to-billed', async (req, res, next) => {
 app.put('/active-customers/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { customerName, location, description, dateOnsite, dateLeaveSite } = req.body;
-    const customer = await updateActiveCustomer(id, customerName, location, description, dateOnsite, dateLeaveSite);
+    const { customerName, location, description, toDo, dateOnsite, dateLeaveSite } = req.body;
+    const customer = await updateActiveCustomer(id, customerName, location, description, toDo, dateOnsite, dateLeaveSite);
     if (!customer) {
       return res.status(404).send('Active customer not found');
     }

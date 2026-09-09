@@ -60,14 +60,14 @@ const moveActiveCustomerToBilled = async(id, dateBilled) => {
   }
 }
 
-const updateActiveCustomer = async(id, customerName, location, description, dateOnsite, dateLeaveSite) => {
+const updateActiveCustomer = async(id, customerName, location, description, toDo, dateOnsite, dateLeaveSite) => {
   try {
     const result = await client.query(`
         UPDATE active_customers
-        SET customer_name = $1, location = $2, description = $3, date_onsite = $4, date_leave_site = $5
-        WHERE id = $6
+        SET customer_name = $1, location = $2, description = $3, to_do = $4, date_onsite = $5, date_leave_site = $6
+        WHERE id = $7
         RETURNING *
-      `, [customerName, location, description, dateOnsite, dateLeaveSite, id]);
+      `, [customerName, location, description, toDo, dateOnsite, dateLeaveSite, id]);
     return result.rows[0];
   } catch(err) {
     console.log(err);
