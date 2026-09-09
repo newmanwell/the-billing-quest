@@ -8,6 +8,7 @@ interface ActiveCustomer {
   customer_name: string;
   location: string;
   description: string;
+  to_do: string;
   date_onsite: string;
   date_leave_site: string;
 }
@@ -71,6 +72,7 @@ const ActiveCustomers = () => {
             <th>Customer Name</th>
             <th>Location</th>
             <th>Description</th>
+            <th>To Do</th>
             <th>Date Onsite</th>
             <th>Date Leave Site</th>
             <th>Action</th>
@@ -82,6 +84,7 @@ const ActiveCustomers = () => {
               <td>{customer.customer_name}</td>
               <td>{customer.location}</td>
               <td>{customer.description}</td>
+              <td>{customer.to_do}</td>
               <td>{customer.date_onsite}</td>
               <td>{customer.date_leave_site}</td>
               <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button>
