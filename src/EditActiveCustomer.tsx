@@ -1,11 +1,11 @@
 import { useState, type FormEvent } from 'react';
+import ActiveCustomerTodos from './ActiveCustomerTodos';
 
 interface ActiveCustomer {
   id: number;
   customer_name: string;
   location: string;
   description: string;
-  to_do: string;
   date_onsite: string;
   date_leave_site: string;
 }
@@ -20,7 +20,6 @@ const EditActiveCustomer = ({ customer, onClose, onUpdated }: EditActiveCustomer
   const [customerName, setCustomerName] = useState(customer.customer_name);
   const [location, setLocation] = useState(customer.location);
   const [description, setDescription] = useState(customer.description);
-  const [toDo, setToDo] = useState(customer.to_do); 
   const [dateOnsite, setDateOnsite] = useState(customer.date_onsite);
   const [dateLeaveSite, setDateLeaveSite] = useState(customer.date_leave_site);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +30,7 @@ const EditActiveCustomer = ({ customer, onClose, onUpdated }: EditActiveCustomer
       const res = await fetch(`/active-customers/${customer.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerName, location, description, toDo, dateOnsite, dateLeaveSite }),
+        body: JSON.stringify({ customerName, location, description, dateOnsite, dateLeaveSite }),
       });
 
       if (!res.ok) {
@@ -65,10 +64,6 @@ const EditActiveCustomer = ({ customer, onClose, onUpdated }: EditActiveCustomer
             <input value={description} onChange={(e) => setDescription(e.target.value)} required />
           </label>
           <label>
-            To Do 
-            <input value={toDo} onChange={(e) => setToDo(e.target.value)} />
-          </label>
-          <label>
             Date Onsite
             <input value={dateOnsite} onChange={(e) => setDateOnsite(e.target.value)} />
           </label>
@@ -81,6 +76,8 @@ const EditActiveCustomer = ({ customer, onClose, onUpdated }: EditActiveCustomer
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
         </form>
+        <h3>To Do</h3>
+        <ActiveCustomerTodos activeCustomerId={customer.id} />
       </div>
     </div>
   )

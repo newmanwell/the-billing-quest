@@ -2,6 +2,7 @@ const express = require('express');
 const client = require('./db/client.cjs');
 const { getActiveCustomers, postActiveCustomers, moveActiveCustomerToBilled, updateActiveCustomer } = require('./db/active-customers.cjs');
 const { getBilledCustomers } = require('./db/billed-customers.cjs');
+const { getTodosByActiveCustomerId, createTodo, updateTodoCompleted, deleteTodo } = require('./db/active-customer-todos.cjs');
 
 const app = express();
 
@@ -22,8 +23,8 @@ app.get('/active-customers', async (req, res, next) => {
 
 app.post('/active-customers', async (req, res, next) => {
   try {
-    const { customerName, location, description, toDo, dateOnsite, dateLeaveSite } = req.body;
-    const customer = await postActiveCustomers(customerName, location, toDo, description, dateOnsite, dateLeaveSite);
+    const { customerName, location, description, dateOnsite, dateLeaveSite } = req.body;
+    const customer = await postActiveCustomers(customerName, location, description, dateOnsite, dateLeaveSite);
     res.status(201).json(customer);
   } catch (err) {
     next(err);
@@ -47,12 +48,64 @@ app.post('/active-customers/:id/move-to-billed', async (req, res, next) => {
 app.put('/active-customers/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { customerName, location, description, toDo, dateOnsite, dateLeaveSite } = req.body;
-    const customer = await updateActiveCustomer(id, customerName, location, description, toDo, dateOnsite, dateLeaveSite);
+    const { customerName, location, description, dateOnsite, dateLeaveSite } = req.body;
+    const customer = await updateActiveCustomer(id, customerName, location, description, dateOnsite, dateLeaveSite);
     if (!customer) {
       return res.status(404).send('Active customer not found');
     }
     res.json(customer);
+  } catch (err) {
+    next(err);
+  }
+})
+
+// Get all to-do items for an active customer
+app.get('/active-customers/:id/todos', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const todos = await getTodosByActiveCustomerId(id);
+    res.json(todos);
+  } catch (err) {
+    next(err);
+  }
+})
+
+// Add a new to-do item to an active customer
+app.post('/active-customers/:id/todos', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { text } = req.body;
+    const todo = await createTodo(id, text);
+    res.status(201).json(todo);
+  } catch (err) {
+    next(err);
+  }
+})
+
+// Toggle a to-do item's completed status
+app.patch('/active-customers/:id/todos/:todoId', async (req, res, next) => {
+  try {
+    const { todoId } = req.params;
+    const { completed } = req.body;
+    const todo = await updateTodoCompleted(todoId, completed);
+    if (!todo) {
+      return res.status(404).send('Todo not found');
+    }
+    res.json(todo);
+  } catch (err) {
+    next(err);
+  }
+})
+
+// Delete a to-do item from an active customer
+app.delete('/active-customers/:id/todos/:todoId', async (req, res, next) => {
+  try {
+    const { todoId } = req.params;
+    const todo = await deleteTodo(todoId);
+    if (!todo) {
+      return res.status(404).send('Todo not found');
+    }
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

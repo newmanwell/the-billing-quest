@@ -10,7 +10,6 @@ const AddActiveCustomer = ({ onClose, onCustomerAdded }: AddActiveCustomerProps)
   const [customerName, setCustomerName] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
-  const [toDo, setToDo] = useState('');
   const [dateOnsite, setDateOnsite] = useState('');
   const [dateLeaveSite, setDateLeaveSite] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +20,7 @@ const AddActiveCustomer = ({ onClose, onCustomerAdded }: AddActiveCustomerProps)
       const res = await fetch('/active-customers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerName, location, description, toDo, dateOnsite, dateLeaveSite }),
+        body: JSON.stringify({ customerName, location, description, dateOnsite, dateLeaveSite }),
       });
 
       if (!res.ok) {
@@ -53,10 +52,6 @@ const AddActiveCustomer = ({ onClose, onCustomerAdded }: AddActiveCustomerProps)
           <label>
             Description
             <input value={description} onChange={(e) => setDescription(e.target.value)} required />
-          </label>
-          <label>
-            To Do 
-            <input value={toDo} onChange={(e) => setToDo(e.target.value)} />
           </label>
           <label>
             Date Onsite
