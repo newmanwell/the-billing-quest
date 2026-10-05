@@ -6,7 +6,6 @@ interface ActiveCustomer {
   customer_name: string;
   location: string;
   description: string;
-  to_do: string;
   date_onsite: string;
   date_leave_site: string;
 }
