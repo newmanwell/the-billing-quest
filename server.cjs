@@ -24,7 +24,7 @@ app.get('/active-customers', async (req, res, next) => {
 app.post('/active-customers', async (req, res, next) => {
   try {
     const { customerName, location, description, toDo, dateOnsite, dateLeaveSite } = req.body;
-    const customer = await postActiveCustomers(customerName, location, toDo, description, dateOnsite, dateLeaveSite);
+    const customer = await postActiveCustomers(customerName, location, description, toDo, dateOnsite, dateLeaveSite);
     res.status(201).json(customer);
   } catch (err) {
     next(err);
