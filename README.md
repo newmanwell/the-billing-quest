@@ -2,6 +2,8 @@
 
 My team often operates independently from other departments in the company. We needed a solution to keep track of the customers we are working on so that we ultimately bill them for our services. This app I'm building is to keep track of our customers. "Active Customers" are any customers that we havent billed yet (pre-work, on-site). Billed customers is just that, work is completed and we have billed them.  
 
+Each active customer also has its own to-do list, so you can track the individual tasks that still need to get done on-site before that customer is ready to be billed. Items can be added, checked off as complete, and deleted.
+
 * PostgreSQL for the DB
 * Express for the middleware
 * React with TypeScript frontend
