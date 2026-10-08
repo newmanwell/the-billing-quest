@@ -17,5 +17,6 @@ I'm pretty excited to build an app that will be used in a real work enviroment!
 1. Install dependencies: npm install
 2. In PSQL: CREATE DATABASE billingquest; (Optional: set DATABASE_URL if your Postgres isn't on the default localhost:5432 with no auth)
 3. To seed tables and inital test customer rows: node db/seed.cjs
-4. To start server: node server.cjs or nodemon server.cjs
-5. To start frontend dev environment: npm run dev
+4. To run migrations (adds columns/tables not covered by the seed script, e.g. the to-do list): npm run migrate up
+5. To start server: node server.cjs or nodemon server.cjs
+6. To start frontend dev environment: npm run dev
