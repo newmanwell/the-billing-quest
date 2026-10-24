@@ -26,7 +26,16 @@ const postActiveCustomers = async(customerName, location, description, dateOnsit
 
 const getActiveCustomers = async() => {
   try {
-    const result = await client.query('SELECT * FROM active_customers');
+    const result = await client.query(`
+        SELECT
+          ac.*,
+          COUNT(t.id)::int AS total_todos,
+          COUNT(t.id) FILTER (WHERE t.completed)::int AS completed_todos
+        FROM active_customers ac
+        LEFT JOIN active_customer_todos t ON t.active_customer_id = ac.id
+        GROUP BY ac.id
+        ORDER BY ac.id
+      `);
     return result.rows;
   } catch(err) {
     console.log(err);

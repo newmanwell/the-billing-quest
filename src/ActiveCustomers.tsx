@@ -10,6 +10,8 @@ interface ActiveCustomer {
   description: string;
   date_onsite: string;
   date_leave_site: string;
+  total_todos: number;
+  completed_todos: number;
 }
 
 const ActiveCustomers = () => {
@@ -60,7 +62,7 @@ const ActiveCustomers = () => {
         showEdit && selectedCustomer && (
           <EditActiveCustomer
             customer={selectedCustomer}
-            onClose={() => setShowEdit(false)}
+            onClose={() => { setShowEdit(false); fetchActiveCustomers(); }}
             onUpdated={fetchActiveCustomers}
           />
         )
@@ -73,6 +75,7 @@ const ActiveCustomers = () => {
             <th>Description</th>
             <th>Date Onsite</th>
             <th>Date Leave Site</th>
+            <th>To Do</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -84,6 +87,7 @@ const ActiveCustomers = () => {
               <td>{customer.description}</td>
               <td>{customer.date_onsite}</td>
               <td>{customer.date_leave_site}</td>
+              <td>{customer.completed_todos}/{customer.total_todos}</td>
               <td><button onClick={() => { setSelectedCustomer(customer); setShowMoveToBilled(true); }}>Billed</button>
                   <button onClick={() => { setSelectedCustomer(customer); setShowEdit(true); }}>Edit/Show To Do List</button>
               </td>
