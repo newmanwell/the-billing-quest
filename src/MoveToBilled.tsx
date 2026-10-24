@@ -48,7 +48,7 @@ const MoveToBilled = ({ customer, onClose, onMoved }: MoveToBilledProps) => {
         <form onSubmit={handleSubmit}>
           <label>
             Date Billed
-            <input value={dateBilled} onChange={(e) => setDateBilled(e.target.value)} required />
+            <input className="edit-input" value={dateBilled} onChange={(e) => setDateBilled(e.target.value)} required />
           </label>
           <div>
             <button type="submit">Submit</button>
