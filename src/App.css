@@ -131,3 +131,19 @@ td {
 tbody tr:last-child td {
   border-bottom: none;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-input {
+  font-size: 16pt;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 400px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: solid .3px;
+}

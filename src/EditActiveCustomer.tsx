@@ -53,23 +53,23 @@ const EditActiveCustomer = ({ customer, onClose, onUpdated }: EditActiveCustomer
         <form onSubmit={handleSubmit}>
           <label>
             Customer Name
-            <input value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+            <input className="edit-input" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
           </label>
           <label>
             Location
-            <input value={location} onChange={(e) => setLocation(e.target.value)} required />
+            <input className="edit-input" value={location} onChange={(e) => setLocation(e.target.value)} required />
           </label>
           <label>
             Description
-            <input value={description} onChange={(e) => setDescription(e.target.value)} required />
+            <input className="edit-input" value={description} onChange={(e) => setDescription(e.target.value)} required />
           </label>
           <label>
             Date Onsite
-            <input value={dateOnsite} onChange={(e) => setDateOnsite(e.target.value)} />
+            <input className="edit-input" value={dateOnsite} onChange={(e) => setDateOnsite(e.target.value)} />
           </label>
           <label>
             Date Leave Site
-            <input value={dateLeaveSite} onChange={(e) => setDateLeaveSite(e.target.value)} />
+            <input className="edit-input" value={dateLeaveSite} onChange={(e) => setDateLeaveSite(e.target.value)} />
           </label>
           <div>
             <button type="submit">Save</button>
